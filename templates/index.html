@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to your home space</h1>
+        <div class="power-off">
+            <a href="/logout"><img src="../static/images/poweroff.png" alt="" srcset=""></a>
+        </div>
+        <div class="taille">
+            <a href="/nbrfiles">Files 
+                {% if fil %}
+                : {{fil}} Files
+                {% endif %}</a>
+            <a href="/nbrdir">
+                Dirs
+                {% if dir %}
+                : {{dir}} Dirs
+                {% endif %}</a>
+            <a href="/space">
+                Space
+                {% if spa %}
+                : {{spa}} Mo
+                {% endif %}
+            </a>
+        </div>
+        <div class="search">
+            <form action="/search" method="POST">
+                <input type="text" name="search">
+                <button><img src="../static/images/search.png" alt="" srcset=""></button>
+            </form>
+        </div>
+        <div class="download">
+            <a href="/download"><img src="../static/images/download.png" alt="" srcset=""></a>
+        </div>
+        <div class="info">
+            {% if text %}
+            <button class="folder tit">File</button>
+            {% else %}
+            <button class="folder tit">Folders</button>
+            {% endif %}
+            <div class="text">
+                {{text}}
+            </div>
+            {% for item in directory %}
+            <form action="{{item['chemin']}}">
+                <button class="folder">{{ item["nom"] }}</button>
+            </form>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
